@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+// Definição das peças
+#define EMPTY 0
+#define PAWN 1
+#define ROOK 2
+#define KNIGHT 3
+#define BISHOP 4
+#define QUEEN 5
+#define KING 6
+#define KING_MAGE 7
+
+// Estrutura para representar uma peça
+typedef struct {
+    int type; // Tipo da peça
+    int player; // Jogador (0 para branco, 1 para preto)
+} Piece;
+
+// Função para inicializar o tabuleiro
+void initBoard(Piece board[8][8]) {
+    // Inicializa todas as peças como vazias
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            board[i][j].type = EMPTY;
+        }
+    }
+
+    // Inicializa as peças padrão do xadrez
+    // ...
+
+    // Adiciona o Mago do Rei para ambos os jogadores
+    board[0][2].type = KING_MAGE;
+    board[7][5].type = KING_MAGE;
+}
+
+// Função para imprimir o tabuleiro
+void printBoard(Piece board[8][8]) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // Imprime caracteres correspondentes às peças
+            switch (board[i][j].type) {
+                case EMPTY:
+                    printf(". ");
+                    break;
+                case PAWN:
+                    printf("P ");
+                    break;
+                case ROOK:
+                    printf("R ");
+                    break;
+                case KNIGHT:
+                    printf("N ");
+                    break;
+                case BISHOP:
+                    printf("B ");
+                    break;
+                case QUEEN:
+                    printf("Q ");
+                    break;
+                case KING:
+                    printf("K ");
+                    break;
+                case KING_MAGE:
+                    printf("M ");
+                    break;
+            }
+        }
+        printf("\n");
+    }
+}
+
+// Função para verificar se um movimento é válido
+bool isValidMove(int fromX, int fromY, int toX, int toY, Piece board[8][8]) {
+    // Verifica se as coordenadas estão dentro do tabuleiro
+    if (fromX < 0 || fromX >= 8 || fromY < 0 || fromY >= 8 ||
+        toX < 0 || toX >= 8 || toY < 0 || toY >= 8) {
+        return false;
+    }
+
+    // Verifica o tipo de peça e aplica a lógica específica
+    switch (board[fromX][fromY].type) {
+        case PAWN:
+            // Implementar lógica para o Peão
+            // ...
+            break;
+        case ROOK:
+            // Implementar lógica para a Torre
+            // ...
+            break;
+        case KNIGHT:
+            // Implementar lógica para o Cavalo
+            // ...
+            break;
+        case BISHOP:
+            // Implementar lógica para o Bispo
+            // ...
+            break;
+        case QUEEN:
+            // Implementar lógica para a Rainha
+            // ...
+            break;
+        case KING:
+            // Implementar lógica para o Rei
+            // ...
+            break;
+        case KING_MAGE:
+            // Implementar lógica para o Mago do Rei
+            // ...
+            break;
+        case EMPTY:
+            return false;  // Não é possível mover uma casa vazia
+    }
+
+    // Exemplo básico: qualquer movimento é válido
+    return true;
+}
+
+// Função para mover uma peça
+void movePiece(int fromX, int fromY, int toX, int toY, Piece board[8][8]) {
+    // Verifica se o movimento é válido
+    if (isValidMove(fromX, fromY, toX, toY, board)) {
+        // Move a peça sem verificar se é válido
+        board[toX][toY] = board[fromX][fromY];
+        board[fromX][fromY].type = EMPTY;
+    }
+}
+
+// Função principal
+int main() {
+    Piece board[8][8];
+    initBoard(board);
+
+    // Exemplo de impressão do tabuleiro
+    printBoard(board);
+
+    // Exemplo de movimento de uma peça
+    movePiece(1, 0, 3, 0, board);
+    printBoard(board);
+
+    return 0;
+}
